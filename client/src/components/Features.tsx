@@ -6,7 +6,7 @@ import { FileText, Shield, Calendar, Clock, CheckCircle, Lock } from 'lucide-rea
  * Design: Minimal Brutalism with Warmth
  * - Premium feature cards with icons
  * - Hover animations and subtle shadows
- * - Asymmetric grid layout
+ * - Asymmetric grid layout with subtle offsets
  */
 
 export default function Features() {
@@ -63,77 +63,76 @@ export default function Features() {
     },
   };
 
+  // Subtle vertical offsets for visual rhythm
+  const offsets = ['', 'lg:translate-y-4', '', '', 'lg:translate-y-4', ''];
+
   return (
-    <section id="features" className="relative bg-background py-24 sm:py-32 overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10" />
+    <>
+      <div className="section-divider" />
+      <section id="features" className="relative bg-background py-24 sm:py-32 overflow-hidden">
+        {/* Decorative background */}
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <motion.div
-          className="mb-16 sm:mb-20"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-6">
-            Powerful Features Built for Pet Care
-          </h2>
-          <p className="text-lg text-foreground/60 max-w-2xl">
-            Everything you need to manage your pet's health, safety, and identity in one intelligent platform.
-          </p>
-        </motion.div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <motion.div
+            className="mb-16 sm:mb-20"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-6 tracking-tight">
+              Powerful Features
+              <br className="hidden sm:block" />
+              Built for Pet Care
+            </h2>
+            <p className="text-lg text-foreground/60 max-w-2xl">
+              Everything you need to manage your pet's health, safety, and identity in one intelligent platform.
+            </p>
+          </motion.div>
 
-        {/* Features Grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
-            return (
-              <motion.div
-                key={index}
-                className="bg-white rounded-xl p-8 border border-border hover:shadow-xl transition-all duration-300"
-                variants={itemVariants}
-                whileHover={{
-                  y: -8,
-                  boxShadow: '0 20px 40px rgba(244, 160, 36, 0.1)',
-                }}
-              >
-                <div className="flex flex-col h-full">
-                  {/* Icon */}
-                  <div className="mb-4">
-                    <div className="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-accent/10">
-                      <Icon className="h-6 w-6 text-accent" />
+          {/* Features Grid */}
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <motion.div
+                  key={index}
+                  className={`bg-white rounded-xl p-8 border border-border card-hover-premium group ${offsets[index]}`}
+                  variants={itemVariants}
+                >
+                  <div className="flex flex-col h-full">
+                    {/* Icon */}
+                    <div className="mb-4">
+                      <div className="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-accent/10 group-hover:bg-accent/15 transition-colors duration-500">
+                        <Icon className="h-6 w-6 text-accent" />
+                      </div>
                     </div>
+
+                    {/* Content */}
+                    <h3 className="text-lg font-semibold text-foreground mb-3">
+                      {feature.title}
+                    </h3>
+                    <p className="text-foreground/60 flex-grow">
+                      {feature.description}
+                    </p>
+
+                    {/* Bottom accent line */}
+                    <div className="mt-6 h-px bg-gradient-to-r from-accent/0 via-accent/30 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
-
-                  {/* Content */}
-                  <h3 className="text-lg font-semibold text-foreground mb-3">
-                    {feature.title}
-                  </h3>
-                  <p className="text-foreground/60 flex-grow">
-                    {feature.description}
-                  </p>
-
-                  {/* Hover indicator */}
-                  <motion.div
-                    className="mt-4 h-1 bg-accent rounded-full"
-                    initial={{ width: 0 }}
-                    whileHover={{ width: '100%' }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-      </div>
-    </section>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
+    </>
   );
 }

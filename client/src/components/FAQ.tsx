@@ -7,7 +7,7 @@ import { useState } from 'react';
  * Design: Minimal Brutalism with Warmth
  * - Accordion-style FAQs
  * - Clean, minimal presentation
- * - Smooth animations
+ * - Smooth animations with accent bar
  */
 
 export default function FAQ() {
@@ -61,97 +61,108 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="relative bg-white py-24 sm:py-32 overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10 -translate-y-1/2" />
+    <>
+      <div className="section-divider" />
+      <section id="faq" className="relative bg-white py-24 sm:py-32 overflow-hidden">
+        {/* Decorative background */}
+        <div className="absolute top-1/2 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10 -translate-y-1/2" />
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <motion.div
-          className="mb-16 sm:mb-20 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-6">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-lg text-foreground/60">
-            Everything you need to know about PetOlife
-          </p>
-        </motion.div>
-
-        {/* FAQ Accordion */}
-        <motion.div
-          className="space-y-4"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {faqs.map((faq, index) => (
-            <motion.div
-              key={index}
-              className="border border-border rounded-lg overflow-hidden"
-              variants={itemVariants}
-            >
-              <button
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full px-6 py-4 bg-background hover:bg-secondary transition-colors duration-300 flex items-center justify-between"
-              >
-                <span className="text-left font-semibold text-foreground">
-                  {faq.question}
-                </span>
-                <motion.div
-                  animate={{ rotate: openIndex === index ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex-shrink-0 ml-4"
-                >
-                  <ChevronDown className="w-5 h-5 text-accent" />
-                </motion.div>
-              </button>
-
-              {/* Answer */}
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{
-                  height: openIndex === index ? 'auto' : 0,
-                  opacity: openIndex === index ? 1 : 0,
-                }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden"
-              >
-                <div className="px-6 py-4 bg-background border-t border-border">
-                  <p className="text-foreground/70 leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </div>
-              </motion.div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Still have questions */}
-        <motion.div
-          className="mt-16 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-foreground/60 mb-4">Still have questions?</p>
-          <a
-            href="#"
-            className="inline-flex items-center gap-2 text-accent font-semibold hover:text-accent/80 transition-colors"
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <motion.div
+            className="mb-16 sm:mb-20 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
           >
-            Contact our support team
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </a>
-        </motion.div>
-      </div>
-    </section>
+            <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-6 tracking-tight">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-lg text-foreground/60">
+              Everything you need to know about PetOlife
+            </p>
+          </motion.div>
+
+          {/* FAQ Accordion */}
+          <motion.div
+            className="space-y-4"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {faqs.map((faq, index) => (
+              <motion.div
+                key={index}
+                className={`border rounded-lg overflow-hidden transition-colors duration-300 ${
+                  openIndex === index ? 'border-accent/30' : 'border-border'
+                }`}
+                variants={itemVariants}
+              >
+                <button
+                  onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                  className="w-full px-6 py-4 bg-background hover:bg-secondary/30 transition-colors duration-300 flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-3 text-left">
+                    {/* Accent bar indicator */}
+                    <div className={`w-0.5 h-5 rounded-full transition-colors duration-300 ${
+                      openIndex === index ? 'bg-accent' : 'bg-transparent'
+                    }`} />
+                    <span className="font-semibold text-foreground">
+                      {faq.question}
+                    </span>
+                  </div>
+                  <motion.div
+                    animate={{ rotate: openIndex === index ? 180 : 0 }}
+                    transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    className="flex-shrink-0 ml-4"
+                  >
+                    <ChevronDown className="w-5 h-5 text-accent" />
+                  </motion.div>
+                </button>
+
+                {/* Answer */}
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{
+                    height: openIndex === index ? 'auto' : 0,
+                    opacity: openIndex === index ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="overflow-hidden"
+                >
+                  <div className="px-6 py-4 bg-background border-t border-border/50">
+                    <p className="text-foreground/70 leading-relaxed pl-4">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Still have questions */}
+          <motion.div
+            className="mt-16 text-center"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-foreground/60 mb-4">Still have questions?</p>
+            <a
+              href="#"
+              className="inline-flex items-center gap-2 text-accent font-semibold hover:text-accent/80 transition-colors group"
+            >
+              Contact our support team
+              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </motion.div>
+        </div>
+      </section>
+    </>
   );
 }
