@@ -2,6 +2,8 @@
 
 Unified pet identity and healthcare management platform. PetOlife consolidates vaccination records, emergency access, verified ownership, and lifelong medical history into a single secure digital identity.
 
+**Live Demo**: [petolife.vercel.app](https://petolife.vercel.app)
+
 ## Overview
 
 PetOlife is a modern healthcare SaaS application built for pet parents and veterinary professionals. The platform provides a centralized digital identity for pets, enabling instant access to critical health information during emergencies, verified ownership records, and seamless coordination across veterinary clinics.
