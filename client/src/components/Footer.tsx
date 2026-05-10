@@ -33,8 +33,8 @@ export default function Footer() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="flex items-center gap-2 mb-5">
-              <img src="/logo.png" alt="PetOlife Logo" className="h-10 w-auto object-contain brightness-0 invert" />
+            <div className="mb-5">
+              <img src="/logo.png" alt="PetOlife Logo" className="h-10 w-auto object-contain rounded-md" />
             </div>
             <p className="text-white/60 text-sm mb-3 leading-relaxed">
               Unified Pet Identity Protocol for the modern pet parent.
